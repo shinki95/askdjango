@@ -1,6 +1,5 @@
-from django.conf.urls. import urllib
+from django.conf.urls import url
 
 
 urlpatterns = [
-    url(r'#)
     ]
