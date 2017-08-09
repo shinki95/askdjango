@@ -1,5 +1,5 @@
 # _*_ coding: utf-8 _*_
-
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PostModelForm
 from .models import Post
@@ -25,20 +25,19 @@ def post_detail(request, id):
         'post': post,
     })
 
-
-
-
 def post_new(request):
     if request.method == 'POST':
         form = PostModelForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save()
+
+            messages.success(request, '새 포스팅을 저장했습니다.')
             return redirect('/blog/')
     else: 
         form = PostModelForm()
     return render(request, 'blog/post_form.html', {
         'form': form,
-    })
+})
 
 
 def post_edit(request, id):
@@ -47,6 +46,7 @@ def post_edit(request, id):
         form = PostModelForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()
+            message.success(request, '포스팅을 수정했습니다.')
             return redirect('/blog/')
     else: 
         form = PostModelForm()
